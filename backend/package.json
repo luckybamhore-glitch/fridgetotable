@@ -1,0 +1,32 @@
+{
+  "name": "fridge-to-table-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Fridge to Table Recipe Generator",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node src/server.js",
+    "start:win": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.5.1",
+    "compression": "^1.8.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.7.0",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.9.5",
+    "morgan": "^1.12.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.1.9"
+  }
+}
