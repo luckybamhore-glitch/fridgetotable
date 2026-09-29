@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import HeroSection from '../components/HeroSection';
+import CookHero from '../components/CookHero';
 import RecipeList from '../components/RecipeList';
 import { useKitchen, INITIAL_EXAMPLE_INGREDIENTS } from '../context/KitchenContext';
 
@@ -18,8 +18,9 @@ export default function HomePage() {
   } = useKitchen();
 
   return (
-    <>
-      <HeroSection
+    <div className="cook-landing">
+      {/* Single hero: old content + new animation, no duplicate navbar */}
+      <CookHero
         onOpenSnap={() => setIsSnapModalOpen(true)}
         onOpenCuttingBoard={() => navigate('/cutting-board')}
         exampleIngredients={INITIAL_EXAMPLE_INGREDIENTS}
@@ -27,7 +28,7 @@ export default function HomePage() {
         onToggleIngredient={toggleExampleIngredient}
       />
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '26px 0 8px 0' }}>
         <Link
           to="/cutting-board"
           className="btn-hero-secondary"
@@ -44,6 +45,6 @@ export default function HomePage() {
         savedRecipeIds={savedRecipeIds}
         onToggleSaveRecipe={toggleSaveRecipe}
       />
-    </>
+    </div>
   );
 }

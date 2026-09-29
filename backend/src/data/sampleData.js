@@ -51,9 +51,9 @@ export const SAMPLE_FRIDGES = [
 
 export const FALLBACK_RECIPES = [
   {
-    id: 'rec_tuscan_salmon',
-    title: 'Tuscan Creamy Garlic Butter Salmon',
-    subtitle: 'Crispy skin, wilted spinach & sweet sun-dried tomatoes in a velvety parmesan pan sauce.',
+    id: 'rec_palalk_tamatar_shimla',
+    title: 'Palak Tamatar Shimla Mirch Sabzi',
+    subtitle: 'Ghar-style spinach, cherry tomato and yellow bell pepper tadka in jeera-haldi masala.',
     matchPercentage: 96,
     prepTime: '10 mins',
     cookTime: '15 mins',
@@ -61,215 +61,192 @@ export const FALLBACK_RECIPES = [
     difficulty: 'Easy',
     rating: 4.9,
     reviewsCount: '1.2k',
-    calories: 520,
+    calories: 320,
     nutrition: {
-      calories: 520,
-      servingSize: '1 salmon fillet + 3/4 cup Tuscan sauce',
-      proteinGrams: 36,
-      protein: '36g',
-      carbsGrams: 10,
-      carbs: '10g',
-      fatGrams: 36,
-      fat: '36g',
-      fiberGrams: 2,
-      fiber: '2g',
-      sugarGrams: 5,
-      sugar: '5g',
-      sodiumMg: 640,
-      sodium: '640mg',
-      cholesterolMg: 165,
-      highlights: ['High Protein', 'Omega-3 Rich', 'Keto-Friendly']
+      calories: 320,
+      servingSize: '1 katori sabzi + 2 roti',
+      proteinGrams: 12,
+      protein: '12g',
+      carbsGrams: 28,
+      carbs: '28g',
+      fatGrams: 18,
+      fat: '18g',
+      fiberGrams: 7,
+      fiber: '7g',
+      sugarGrams: 8,
+      sugar: '8g',
+      sodiumMg: 540,
+      sodium: '540mg',
+      cholesterolMg: 15,
+      highlights: ['High Fibre', 'Desi Tadka', 'Vegetarian']
     },
-    cuisine: 'Italian Coastal',
-    imageUrl: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1200&q=80',
+    cuisine: 'North Indian Home Style',
+    imageUrl: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=1200&q=80',
     matchedIngredients: [
-      { name: 'Salmon Fillets', amount: '2 portions (6 oz each)', isFromPantry: true },
-      { name: 'Garlic', amount: '4 cloves, minced', isFromPantry: true },
-      { name: 'Baby Spinach', amount: '3 cups fresh', isFromPantry: true },
-      { name: 'Heavy Cream', amount: '3/4 cup', isFromPantry: true },
-      { name: 'Sun-dried Tomatoes', amount: '1/3 cup, sliced', isFromPantry: true },
-      { name: 'Butter', amount: '2 tbsp', isFromPantry: true }
+      { name: 'Cherry Tomatoes', amount: '1 cup, halved', isFromPantry: true },
+      { name: 'Yellow Bell Pepper', amount: '1 large, diced', isFromPantry: true },
+      { name: 'Spinach', amount: '3 cups, chopped', isFromPantry: true },
+      { name: 'Garlic', amount: '4 cloves, minced', isFromPantry: true }
     ],
     missingIngredients: [
-      { name: 'Parmesan Cheese (optional)', amount: '1/4 cup grated', optional: true, substitute: 'Nutritional yeast or extra butter' },
-      { name: 'Fresh Lemon Wedges', amount: '1 lemon', optional: false, substitute: 'Apple cider vinegar or white wine' }
+      { name: 'Salt', amount: 'to taste', optional: true, substitute: 'Black salt or sendha namak' },
+      { name: 'Haldi (Turmeric)', amount: '1/2 tsp', optional: true, substitute: 'A pinch of garam masala' },
+      { name: 'Jeera (Cumin Seeds)', amount: '1 tsp', optional: true, substitute: 'Mustard seeds / rai' }
     ],
     instructions: [
       {
         step: 1,
-        title: 'Sear the Salmon',
-        instruction: 'Pat salmon fillets dry with a paper towel. Season with salt and cracked black pepper. Heat 1 tbsp butter and olive oil in a skillet over medium-high heat. Sear salmon skin-side down for 5 minutes, flip and sear for 3 minutes until golden. Transfer to a warm plate.',
-        durationMinutes: 8,
-        tip: 'Drying the skin thoroughly ensures a restaurant-crisp texture without sticking.'
+        title: 'Tadka Lagao',
+        instruction: 'Heat 2 tbsp mustard oil / ghee in a kadhai on medium flame. Add 1 tsp jeera, let it crackle. Add minced garlic and 1 chopped green chilli, bhuno for 30 seconds till fragrant.',
+        durationMinutes: 2,
+        tip: 'Jeera should crackle immediately — if not, oil is not hot enough for a proper desi tadka.'
       },
       {
         step: 2,
-        title: 'Sauté Aromatics',
-        instruction: 'In the same skillet over medium heat, melt the remaining 1 tbsp butter. Add minced garlic and sun-dried tomatoes; sauté for 1 minute until delightfully fragrant.',
-        durationMinutes: 2,
-        tip: 'Do not let the garlic brown deeply; keep it aromatic and sweet.'
+        title: 'Bhuno Masala',
+        instruction: 'Add diced yellow bell pepper, saute 3 mins. Add halved cherry tomatoes, 1/2 tsp haldi, 1 tsp dhania powder, salt to taste. Bhuno till tomatoes soften and oil leaves sides.',
+        durationMinutes: 6,
+        tip: 'Bhuno on medium-high till masala turns glossy — this is the soul of the sabzi.'
       },
       {
         step: 3,
-        title: 'Build the Velvety Sauce',
-        instruction: 'Reduce heat to low-medium. Pour in heavy cream and bring to a gentle simmer. Fold in fresh baby spinach and stir until gently wilted (about 2 minutes).',
-        durationMinutes: 3,
-        tip: 'Stir constantly to prevent cream from scorching.'
-      },
-      {
-        step: 4,
-        title: 'Combine & Finish',
-        instruction: 'Nestle the seared salmon back into the skillet. Spoon the creamy sauce over top. Squeeze fresh lemon juice, garnish with pine nuts or herbs, and serve immediately.',
-        durationMinutes: 2,
-        tip: 'Serve with steamed cauliflower rice, crusty rustic bread, or green beans.'
+        title: 'Palak Milao',
+        instruction: 'Add chopped spinach, cover and cook 4-5 mins till wilted. Sprinkle 1/2 tsp garam masala and a squeeze of nimbu. Serve hot with roti or jeera rice.',
+        durationMinutes: 5,
+        tip: 'Do not overcook palak — keep it bright green for best taste and nutrition.'
       }
     ],
     chefTips: [
-      'For maximum flavor, use oil from the sun-dried tomato jar when searing the salmon.',
-      'If the cream sauce becomes too thick, whisk in 2 tablespoons of warm water or broth.'
+      'Add kasuri methi crushed between palms at the end for dhaba-style aroma.',
+      'If tomatoes are sour, add a pinch of gur / sugar to balance.'
     ],
-    whyItWorks: 'The rich natural omega fats of the salmon cut beautifully through the acidity of sun-dried tomatoes and velvety garlic cream.',
-    winePairing: 'Crisp Pinot Grigio or chilled Sauvignon Blanc',
-    tags: ['Keto-Friendly', 'High Protein', 'Under 30 Mins', 'Tonight\'s Pick']
+    whyItWorks: 'Jeera-garlic tadka blooms in hot oil, haldi and tomato acidity cut the earthiness of palak, while sweet bell pepper balances the masala.',
+    winePairing: 'Masala Chaas or Nimbu Pani',
+    tags: ['Vegetarian', 'Under 30 Mins', 'Tonight\'s Pick', 'Desi Tadka']
   },
   {
-    id: 'rec_garlic_butter_pasta',
-    title: 'Rustic Pan-Roasted Garlic & Spinach Pasta',
-    subtitle: 'Al dente ribbons tossed in browned butter, blistered tomatoes, and silky parmesan emulsion.',
+    id: 'rec_masala_spinach_bhurji',
+    title: 'Desi Masala Spinach Bell Pepper Bhurji',
+    subtitle: 'Dry-style Indian bhurji with haldi-jeera tadka, perfect with paratha or dal-chawal.',
     matchPercentage: 92,
-    prepTime: '5 mins',
-    cookTime: '15 mins',
+    prepTime: '8 mins',
+    cookTime: '12 mins',
     servings: 2,
     difficulty: 'Easy',
     rating: 4.8,
     reviewsCount: '840',
-    calories: 440,
+    calories: 290,
     nutrition: {
-      calories: 440,
-      servingSize: '1 bowl (approx. 320g)',
-      proteinGrams: 14,
-      protein: '14g',
-      carbsGrams: 58,
-      carbs: '58g',
-      fatGrams: 18,
-      fat: '18g',
-      fiberGrams: 5,
-      fiber: '5g',
-      sugarGrams: 4,
-      sugar: '4g',
+      calories: 290,
+      servingSize: '1 katori bhurji (approx. 250g)',
+      proteinGrams: 10,
+      protein: '10g',
+      carbsGrams: 22,
+      carbs: '22g',
+      fatGrams: 16,
+      fat: '16g',
+      fiberGrams: 6,
+      fiber: '6g',
+      sugarGrams: 7,
+      sugar: '7g',
       sodiumMg: 480,
       sodium: '480mg',
-      cholesterolMg: 55,
-      highlights: ['Vegetarian', 'Comfort Food', 'Quick Energy']
+      cholesterolMg: 10,
+      highlights: ['Vegetarian', 'Quick Sabzi', 'Low Oil Option']
     },
-    cuisine: 'Modern Mediterranean',
-    imageUrl: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281691?auto=format&fit=crop&w=1200&q=80',
+    cuisine: 'Punjabi Dhaba Style',
+    imageUrl: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=1200&q=80',
     matchedIngredients: [
-      { name: 'Garlic', amount: '5 cloves, thinly sliced', isFromPantry: true },
-      { name: 'Spinach', amount: '4 cups', isFromPantry: true },
-      { name: 'Butter', amount: '3 tbsp', isFromPantry: true },
-      { name: 'Heavy Cream', amount: '1/4 cup', isFromPantry: true }
+      { name: 'Spinach', amount: '3 cups', isFromPantry: true },
+      { name: 'Cherry Tomatoes', amount: '1 cup', isFromPantry: true },
+      { name: 'Yellow Bell Pepper', amount: '1 large', isFromPantry: true }
     ],
     missingIngredients: [
-      { name: 'Spaghetti / Fettuccine', amount: '200g', optional: false, substitute: 'Egg noodles or spiralized zucchini' },
-      { name: 'Red Pepper Flakes', amount: '1/2 tsp', optional: true, substitute: 'Black pepper' }
+      { name: 'Mustard Oil', amount: '1 tbsp', optional: true, substitute: 'Ghee or any cooking oil' },
+      { name: 'Black Pepper (Kali Mirch)', amount: '1/2 tsp crushed', optional: true, substitute: 'Green chilli or red chilli powder' }
     ],
     instructions: [
       {
         step: 1,
-        title: 'Boil Pasta',
-        instruction: 'Cook pasta in heavily salted boiling water until 1 minute before al dente. Reserve 1/2 cup pasta cooking water.',
-        durationMinutes: 8,
-        tip: 'Pasta water contains starches that form an emulsified restaurant-style sauce.'
+        title: 'Tadka & Bhuno',
+        instruction: 'Heat oil in kadhai. Add jeera and hing, then chopped bell pepper. Saute 3 mins on high flame for light char.',
+        durationMinutes: 4,
+        tip: 'High flame gives dhaba-style smoky char to shimla mirch.'
       },
       {
         step: 2,
-        title: 'Brown the Butter & Garlic',
-        instruction: 'Melt butter in a wide pan over medium heat. When frothy, add sliced garlic and chili flakes, stirring until golden and nutty.',
-        durationMinutes: 3,
-        tip: 'Watch closely; browned butter has a warm hazelnut scent.'
-      },
-      {
-        step: 3,
-        title: 'Toss and Emulsify',
-        instruction: 'Add pasta directly into the butter skillet with reserved pasta water and heavy cream. Swirl vigorously until glossy. Fold in spinach until wilted.',
-        durationMinutes: 3,
-        tip: 'Tossing vigorously creates the velvety restaurant sheen.'
+        title: 'Tomato-Palek Mix',
+        instruction: 'Add tomatoes, haldi, salt, crushed kali mirch. Cook 3 mins, then add spinach. Cover 4 mins till dry sabzi consistency.',
+        durationMinutes: 7,
+        tip: 'Cook open at the end to evaporate water for perfect dry bhurji texture.'
       }
     ],
-    chefTips: ['Garnish with toasted breadcrumbs or pine nuts for crunch.'],
-    whyItWorks: 'Starchy pasta water combines with browned butter fats to create an authentic Roman emulsion.',
-    winePairing: 'Chardonnay or Vermentino',
-    tags: ['Quick & Easy', 'Vegetarian Friendly', 'Comfort Food']
+    chefTips: ['Serve with ghee-roasted paratha and kachumber salad.'],
+    whyItWorks: 'Hot tadka + tomato khattas + palak earthiness creates classic sweet-sour-savoury Indian balance.',
+    winePairing: 'Sweet Lassi or Masala Chai',
+    tags: ['Quick & Easy', 'Vegetarian Friendly', 'Indian Tiffin']
   },
   {
-    id: 'rec_crispy_salmon_bowl',
-    title: 'Crispy Garlic Salmon & Green Power Bowl',
-    subtitle: 'Golden-seared salmon rested over sautéed garlic greens, warm grains, and lemon crema.',
+    id: 'rec_tamatar_palalk_tadka',
+    title: 'Tamatar Palak Tadka Curry',
+    subtitle: 'Light South-North fusion curry — tomato-garlic tadka poured over wilted palak and peppers.',
     matchPercentage: 91,
-    prepTime: '10 mins',
+    prepTime: '8 mins',
     cookTime: '12 mins',
     servings: 2,
     difficulty: 'Easy',
     rating: 4.9,
     reviewsCount: '620',
-    calories: 490,
+    calories: 310,
     nutrition: {
-      calories: 490,
-      servingSize: '1 power bowl (salmon + greens + grains)',
-      proteinGrams: 34,
-      protein: '34g',
-      carbsGrams: 28,
-      carbs: '28g',
-      fatGrams: 28,
-      fat: '28g',
+      calories: 310,
+      servingSize: '1 katori curry + 1 cup steamed rice',
+      proteinGrams: 11,
+      protein: '11g',
+      carbsGrams: 30,
+      carbs: '30g',
+      fatGrams: 15,
+      fat: '15g',
       fiberGrams: 6,
       fiber: '6g',
-      sugarGrams: 5,
-      sugar: '5g',
-      sodiumMg: 560,
-      sodium: '560mg',
-      cholesterolMg: 95,
-      highlights: ['High Protein', 'Gluten Free', 'Nutrient Dense']
+      sugarGrams: 8,
+      sugar: '8g',
+      sodiumMg: 520,
+      sodium: '520mg',
+      cholesterolMg: 8,
+      highlights: ['Comfort Curry', 'Gluten Free', 'One Kadhai']
     },
-    cuisine: 'Healthy Californian',
-    imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=80',
+    cuisine: 'Desi Home Style Curry',
+    imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1200&q=80',
     matchedIngredients: [
-      { name: 'Salmon Fillets', amount: '2 fillets', isFromPantry: true },
+      { name: 'Cherry Tomatoes', amount: '1 cup', isFromPantry: true },
       { name: 'Spinach', amount: '2 cups', isFromPantry: true },
-      { name: 'Garlic', amount: '3 cloves', isFromPantry: true },
-      { name: 'Butter', amount: '1 tbsp', isFromPantry: true }
+      { name: 'Yellow Bell Pepper', amount: '1 diced', isFromPantry: true },
+      { name: 'Garlic', amount: '3 cloves', isFromPantry: true }
     ],
     missingIngredients: [
-      { name: 'Quinoa or Brown Rice', amount: '1 cup cooked', optional: true, substitute: 'Riced cauliflower' },
-      { name: 'Avocado', amount: '1 sliced', optional: true, substitute: 'Cucumber slices' }
+      { name: 'Garam Masala', amount: '1/2 tsp', optional: true, substitute: 'Kitchen king masala' },
+      { name: 'Salt', amount: 'to taste', optional: true, substitute: 'Black salt' }
     ],
     instructions: [
       {
         step: 1,
-        title: 'Pan Sear Salmon',
-        instruction: 'Cook salmon in a hot cast-iron skillet for 4 mins per side until crispy on the edges.',
-        durationMinutes: 8,
-        tip: 'Do not move the fillet for the first 3 minutes so a crisp crust forms.'
+        title: 'Curry Base',
+        instruction: 'In a kadhai, heat 1 tbsp oil, add rai + jeera + curry leaves (optional). Add garlic, bell pepper, tomatoes. Bhuno till soft.',
+        durationMinutes: 6,
+        tip: 'Let tomatoes break down fully — that is your natural curry gravy, no cream needed.'
       },
       {
         step: 2,
-        title: 'Flash Sauté Greens',
-        instruction: 'Toss spinach and garlic in butter for 90 seconds until warm and tender.',
-        durationMinutes: 2,
-        tip: 'Retain vibrant green color by pulling off heat immediately.'
-      },
-      {
-        step: 3,
-        title: 'Assemble Bowl',
-        instruction: 'Layer warm greens, spoon over tangy lemon-cream drizzle, and rest salmon on top.',
-        durationMinutes: 2,
-        tip: 'Sprinkle with toasted seeds for extra texture.'
+        title: 'Palak & Finish',
+        instruction: 'Add spinach + 1/2 cup water, simmer 4 mins. Finish with garam masala and nimbu juice. Serve with rice / roti.',
+        durationMinutes: 5,
+        tip: 'Add tadka of ghee + garlic on top before serving for restaurant aroma.'
       }
     ],
-    chefTips: ['Finish with flaky sea salt right before taking your first bite.'],
-    whyItWorks: 'Nutrient-dense pairing of healthy fats, magnesium-rich dark leafy greens, and clean protein.',
-    winePairing: 'Sparkling Rosé or Sparkling Water with Lime',
-    tags: ['High Protein', 'Gluten Free', 'Under 20 Mins']
+    chefTips: ['Mash a few tomatoes with the back of the spoon for thicker desi gravy.'],
+    whyItWorks: 'Rai-jeera tempering + tomato tang + garam masala warmth lifts mild palak and sweet peppers into a full Indian curry.',
+    winePairing: 'Masala Chaas or Jeera Pani',
+    tags: ['One Pot', 'Gluten Free', 'Under 20 Mins']
   }
 ];

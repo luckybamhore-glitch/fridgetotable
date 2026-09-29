@@ -16,9 +16,6 @@ if (isGeminiConfigured) {
 // Ordered fallback chain — first working model wins. Override with GEMINI_MODEL env.
 const MODEL_CHAIN = [
   process.env.GEMINI_MODEL,
-  'gemini-3.8-flash',
-  'gemini-3.6-flash',
-  'gemini-3.5-flash',
   'gemini-3.5-flash-lite',
   'gemini-2.5-flash',
   'gemini-flash-latest',

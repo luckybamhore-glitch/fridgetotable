@@ -28,7 +28,7 @@ export const generateRecipes = async (req, res) => {
       try {
         console.log('🤖 Calling Google Gemini API to generate tailored culinary recipes...');
 
-        const prompt = `You are a Michelin-star Executive Chef creating inspiring, restaurant-quality dinners for home cooks based strictly on whatever is in their fridge and pantry.
+        const prompt = `You are a Michelin-star INDIAN Executive Chef creating inspiring, home-style yet restaurant-quality INDIAN dinners for home cooks based strictly on whatever is in their fridge and pantry.
 
 AVAILABLE INGREDIENTS:
 ${ingredientNames.join(', ')}
@@ -38,16 +38,23 @@ ${preferences.dietary ? preferences.dietary.join(', ') : 'None'}
 Max Prep/Cook Time: ${preferences.maxTime || '35'} minutes
 
 TASK:
-Create 3 distinct, restaurant-quality recipes that utilize as many of the available ingredients as possible.
+Create 3 distinct, authentic INDIAN recipes (North Indian, South Indian, Indo-fusion curries, sabzi, dal, masala, tadka, tandoori-style, biryani-style, etc.) that utilize as many of the available ingredients as possible.
 At least one recipe should be a signature showstopper (95%+ match).
-Be realistic: if a few small pantry staples (like salt, pepper, olive oil, lemon) are missing, list them explicitly under missingIngredients.
+Use Indian cooking methods (tadka/tempering, bhuna, dum, tadka dal style), Indian spice palette (haldi, jeera, dhania, garam masala, mustard seeds, curry leaves, green chilli, ginger-garlic paste), and Indian titles (e.g. Palak Tamatar Masala Sabzi, Masala Bell Pepper Spinach Curry, Desi Style Cherry Tomato Tadka).
+
+STRICT RULES FOR matchedIngredients vs missingIngredients:
+- matchedIngredients = ONLY items from AVAILABLE INGREDIENTS above. Use them as the hero/main ingredients (vegetables, paneer, chicken, dal, rice, etc.).
+- missingIngredients = MAX 2 to 3 items, ONLY tiny everyday Indian pantry staples in small quantities. ALLOWED: salt, black pepper / kali mirch, haldi (turmeric), jeera (cumin), dhania powder, garam masala, red chilli powder, mustard seeds / rai, curry leaves, oil / mustard oil / ghee, lemon juice / amchur. Amounts must be tiny: "to taste", "1/2 tsp", "1 tsp", "1 tbsp", "1 pinch".
+- NEVER put large/main ingredients in missingIngredients: NO chicken, NO mutton, NO fish, NO paneer, NO tofu, NO extra vegetables, NO rice bags, NO flour bags, NO cream cartons, NO cheese blocks, NO pork chops. If a main ingredient is not in AVAILABLE INGREDIENTS, DO NOT invent it — cook WITHOUT it, Indian style (make it vegetarian with what is available).
+- Every missingIngredient must have "optional": true and a simple Indian household substitute (e.g. mustard oil -> ghee or any cooking oil, curry leaves -> coriander leaves, garam masala -> kitchen king masala).
+- "substitute" must be a tiny staple too, NEVER a large ingredient.
 
 CRITICAL: Return ONLY a raw JSON array of objects without markdown backticks.
 Schema for each recipe:
 {
   "id": "unique-slug-string",
-  "title": "Creative Appetizing Name (e.g. Tuscan Creamy Garlic Butter Salmon)",
-  "subtitle": "One sentence appetizing editorial description",
+  "title": "Creative Indian Name (e.g. Palak Tamatar Tadka Sabzi)",
+  "subtitle": "One sentence appetizing editorial description with Indian flavours",
   "matchPercentage": number (75 to 98),
   "prepTime": "e.g. 10 mins",
   "cookTime": "e.g. 20 mins",
@@ -58,7 +65,7 @@ Schema for each recipe:
   "calories": number (approx 400-650, per serving),
   "nutrition": {
     "calories": number (per serving, must match "calories" above),
-    "servingSize": "e.g. 1 fillet + 3/4 cup sauce",
+    "servingSize": "e.g. 1 katori sabzi + 2 roti",
     "proteinGrams": number (e.g. 34),
     "carbsGrams": number (e.g. 12),
     "fatGrams": number (e.g. 32),
@@ -68,7 +75,7 @@ Schema for each recipe:
     "cholesterolMg": number (e.g. 145),
     "highlights": ["High Protein", "Omega-3 Rich", max 3 short labels]
   },
-  "cuisine": "e.g. Italian Coastal, Modern Bistro, etc.",
+  "cuisine": "e.g. North Indian Home Style, South Indian, Punjabi Dhaba Style, etc. — MUST be Indian",
   "imageUrl": "valid unsplash food url",
   "matchedIngredients": [
     { "name": "Ingredient Name", "amount": "quantity used", "isFromPantry": true }
@@ -80,14 +87,14 @@ Schema for each recipe:
     {
       "step": 1,
       "title": "Step title",
-      "instruction": "Detailed clear instruction",
+      "instruction": "Detailed clear instruction with Indian tadka/tempering steps",
       "durationMinutes": number,
       "tip": "Chef secret tip for this step"
     }
   ],
   "chefTips": ["tip 1", "tip 2"],
-  "whyItWorks": "Culinary chemistry explanation of why these ingredients harmonize",
-  "winePairing": "Sommelier recommendation or beverage pairing",
+  "whyItWorks": "Explain Indian tadka / masala chemistry of why these ingredients harmonize",
+  "winePairing": "Indian beverage pairing like Masala Chaas, Sweet Lassi, Nimbu Pani or Masala Chai",
   "tags": ["High Protein", "Under 30 Mins", etc.]
 }`;
 
@@ -120,7 +127,9 @@ Schema for each recipe:
 
     // Guarantee every recipe carries a complete per-serving nutrition card,
     // even when the AI omits it or returns partial data.
-    recipes = recipes.map(ensureNutrition);
+    // Also enforce: Indian cuisine + minimal staples-only missingIngredients,
+    // even if the model hallucinates large items like Chicken Breast.
+    recipes = recipes.map((r) => sanitizeRecipe(r, ingredientNames)).map(ensureNutrition);
 
     res.json({
       success: true,
@@ -149,11 +158,11 @@ export const askChefAssistant = async (req, res) => {
     }
 
     if (isGeminiConfigured) {
-      const prompt = `You are a friendly, world-class culinary chef assistant for the app "Fridge to Table".
-The user is cooking: ${recipeContext?.title || 'a home dinner'}.
+      const prompt = `You are a friendly, expert INDIAN chef assistant for the app "Fridge to Table".
+The user is cooking Indian food: ${recipeContext?.title || 'a home dinner'}.
 User Question: "${question}"
 
-Provide a concise, encouraging, and expert answer (2 to 4 sentences). Give exact substitution ratios if asking about an ingredient.`;
+Provide a concise, encouraging, expert INDIAN-kitchen answer (2 to 4 sentences). Suggest only tiny Indian pantry staples (haldi, jeera, garam masala, mustard oil, ghee, curry leaves, nimbu) as swaps — NEVER suggest adding large main ingredients like chicken, paneer or fish. Give exact Indian substitution ratios (e.g. 1 tsp jeera, 1/2 tsp haldi).`; 
 
       const { text } = await generateWithFallback(prompt);
       return res.json({
@@ -163,16 +172,16 @@ Provide a concise, encouraging, and expert answer (2 to 4 sentences). Give exact
       });
     }
 
-    // Smart culinary answers fallback
-    let cannedAnswer = "For heavy cream, you can whisk 3/4 cup whole milk with 1/4 cup melted unsalted butter, or use full-fat coconut cream or Greek yogurt with a splash of milk for a silky richness!";
+    // Smart culinary answers fallback — Indian kitchen style
+    let cannedAnswer = "For a creamy desi gravy without cream, whisk 3/4 cup milk with 1 tsp besan and 1 tbsp malai / dahi — boil gently for a silky Indian curry base!";
     const qLower = question.toLowerCase();
 
     if (qLower.includes('substitute') && qLower.includes('butter')) {
-      cannedAnswer = "Extra virgin olive oil or ghee is an outstanding 1:1 substitute for butter, adding a lovely aromatic fruitiness to pan sauces.";
-    } else if (qLower.includes('salmon') || qLower.includes('fish')) {
-      cannedAnswer = "Chicken breasts, firm tofu, or sea bass work with this exact Tuscan garlic pan sauce with similar cooking times.";
+      cannedAnswer = "Desi ghee or mustard oil is the best 1:1 substitute for butter in tadka — 1 tbsp ghee gives authentic dhaba aroma.";
+    } else if (qLower.includes('salmon') || qLower.includes('fish') || qLower.includes('chicken')) {
+      cannedAnswer = "No need to add non-veg — make it with what you have! Add extra palak, shimla mirch or a handful of matar / chana for protein, with the same tadka masala.";
     } else if (qLower.includes('garlic')) {
-      cannedAnswer = "You can use 1/4 tsp garlic powder per clove, or shallow-fry shallots for a mild, sweet allium profile.";
+      cannedAnswer = "You can use 1/4 tsp garlic powder per clove, or 1 tsp ginger-garlic paste, or hing (a pinch) + extra jeera for tadka flavour.";
     }
 
     res.json({
@@ -280,6 +289,81 @@ export const deleteSavedRecipe = async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
+};
+
+/**
+ * Allowed tiny pantry staples for missingIngredients.
+ * Anything else (proteins, veggies, large packs) gets stripped out.
+ */
+const ALLOWED_STAPLES = [
+  'salt', 'black pepper', 'kali mirch', 'haldi', 'turmeric',
+  'jeera', 'cumin', 'dhania', 'coriander powder', 'garam masala',
+  'kitchen king', 'red chilli', 'lal mirch', 'green chilli', 'hari mirch',
+  'mustard seeds', 'rai',
+  'curry leaves', 'kadi patta', 'oil', 'mustard oil', 'ghee',
+  'hing', 'asafoetida', 'methi', 'ajwain', 'saunf', 'elaichi',
+  'laung', 'dalchini', 'tej patta', 'bay leaf',
+  'lemon juice', 'nimbu', 'amchur', 'vinegar', 'sugar', 'jaggery', 'gur',
+  'besan', 'garlic', 'garlic powder', 'ginger', 'ginger powder', 'kasuri methi'
+];
+
+const BANNED_LARGE_INGREDIENTS = [
+  'chicken', 'mutton', 'fish', 'salmon', 'prawn', 'shrimp', 'egg',
+  'paneer', 'tofu', 'pork', 'chop', 'breast', 'fillet',
+  'potato', 'tomato', 'onion', 'spinach', 'pepper bell', 'bell pepper',
+  'mushroom', 'broccoli', 'zucchini', 'cauliflower', 'cabbage',
+  'rice', 'biryani', 'flour', 'atta', 'maida', 'pasta', 'noodle',
+  'bread', 'quinoa', 'oats', 'cheese', 'cream', 'butter block',
+  'milk carton', 'yogurt pack', 'avocado', 'beans pack'
+];
+
+const isAllowedStaple = (name = '') => {
+  const lower = name.toLowerCase();
+  // Hard reject large/main ingredients even if they contain an allowed word
+  // e.g. "Chicken Breast" contains "breast" -> banned, "Bell Pepper" contains "pepper" but is a veggie
+  if (BANNED_LARGE_INGREDIENTS.some((b) => lower.includes(b))) {
+    // Exception: "black pepper" / "red chilli pepper flakes" are fine
+    if (lower.includes('black pepper') || lower.includes('kali mirch') || lower.includes('pepper flakes') || lower.includes('chilli powder')) {
+      return true;
+    }
+    return false;
+  }
+  return ALLOWED_STAPLES.some((s) => lower.includes(s));
+};
+
+/**
+ * Enforce product rules even when the AI hallucinates:
+ * 1. Cuisine must be Indian — patch western labels.
+ * 2. missingIngredients = max 3 tiny staples only. Drop chicken / large veggies.
+ * 3. matchedIngredients must only contain user pantry items.
+ */
+const sanitizeRecipe = (recipe, ingredientNames = []) => {
+  const pantryLower = ingredientNames.map((i) => String(i).toLowerCase());
+
+  // 1. Force Indian cuisine label if model returns western cuisine
+  let cuisine = recipe?.cuisine || 'North Indian Home Style';
+  if (!/indian|punjabi|mughlai|chettinad|kerala|bengali|gujarati|maharashtrian|rajasthani|south indian|north indian|indo-|desi|dhaba|tamil|hyderabadi|kashmiri/i.test(cuisine)) {
+    cuisine = 'North Indian Home Style';
+  }
+
+  // 2. matchedIngredients: keep only what user actually has (fuzzy match),
+  // but never drop everything — keep at least what AI gave if pantry is empty.
+  let matched = Array.isArray(recipe?.matchedIngredients) ? recipe.matchedIngredients : [];
+  if (pantryLower.length > 0) {
+    const filtered = matched.filter((mi) =>
+      pantryLower.some((p) => p.includes(String(mi.name || '').toLowerCase()) || String(mi.name || '').toLowerCase().includes(p))
+    );
+    if (filtered.length > 0) matched = filtered;
+  }
+
+  // 3. missingIngredients: only tiny staples, max 3, all optional
+  let missing = Array.isArray(recipe?.missingIngredients) ? recipe.missingIngredients : [];
+  missing = missing
+    .filter((m) => isAllowedStaple(m?.name || ''))
+    .map((m) => ({ ...m, optional: true }))
+    .slice(0, 3);
+
+  return { ...recipe, cuisine, matchedIngredients: matched, missingIngredients: missing };
 };
 
 const toNum = (v, fallback = 0) => {

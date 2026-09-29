@@ -107,8 +107,16 @@ export function KitchenProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Re-fetch saved list when auth state changes
+  // Re-fetch saved list when auth state changes.
+  // When the user logs out, also clear any generated recipes from the
+  // landing page so the next visitor / logged-out view starts clean.
   useEffect(() => {
+    if (!isAuthenticated) {
+      setRecipes([]);
+      setSelectedRecipe(null);
+      setSavedRecipeIds([]);
+      setIsGenerating(false);
+    }
     fetchSavedRecipes();
   }, [isAuthenticated, fetchSavedRecipes]);
 
@@ -143,6 +151,12 @@ export function KitchenProvider({ children }) {
   }, []);
 
   const clearIngredients = useCallback(() => setIngredients([]), []);
+
+  const clearRecipes = useCallback(() => {
+    setRecipes([]);
+    setSelectedRecipe(null);
+    setIsGenerating(false);
+  }, []);
 
   const toggleDietary = useCallback((diet) => {
     setSelectedDietary((prev) => (prev.includes(diet) ? prev.filter((d) => d !== diet) : [...prev, diet]));
@@ -202,6 +216,7 @@ export function KitchenProvider({ children }) {
     setIsAskAiOpen,
     fetchSavedRecipes,
     generateRecipes,
+    clearRecipes,
     toggleExampleIngredient,
     addIngredient,
     removeIngredient,

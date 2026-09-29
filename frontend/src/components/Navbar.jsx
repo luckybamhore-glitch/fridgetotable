@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Sparkles, UtensilsCrossed, Settings, Heart, LogOut, ChevronDown, MessageCircleQuestion, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useKitchen } from '../context/KitchenContext';
 
 export default function Navbar({ onOpenSnap, onOpenSettings, onOpenAskAi, savedCount = 0 }) {
   const { user, isAuthenticated, logout } = useAuth();
+  const { clearRecipes } = useKitchen();
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -33,6 +35,7 @@ export default function Navbar({ onOpenSnap, onOpenSettings, onOpenAskAi, savedC
   }, [location.pathname]);
 
   const handleLogout = () => {
+    clearRecipes?.();
     logout();
     setUserOpen(false);
     navigate('/', { replace: true });
