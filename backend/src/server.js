@@ -118,7 +118,7 @@ app.use(errorHandler);
 // Start server (skip when imported for tests)
 const startServer = async () => {
   await connectDB();
-  const server = app.listen(PORT, () => {
+  const server = app.listen(PORT,"0.0.0.0", () => {
     console.log(`🚀 Fridge to Table API (${NODE_ENV}) running on http://localhost:${PORT}`);
     console.log(`   - Gemini Vision: ${isGeminiConfigured ? 'Connected' : 'Fallback Engine'}`);
     console.log(`   - Cloudinary: ${isCloudinaryConfigured ? 'Connected' : 'Fallback Data URI'}`);
